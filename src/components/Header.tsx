@@ -13,6 +13,7 @@ export default function Header() {
   const { getTotalItems } = useCart();
   const { user, isAuthenticated, logout } = useAuth();
   const [showAccountMenu, setShowAccountMenu] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close menu when clicking outside
@@ -66,6 +67,24 @@ export default function Header() {
 
             {/* Search + Icons */}
             <div className="flex items-center gap-4">
+              {/* Mobile menu button */}
+              <button
+                className="md:hidden p-2 rounded hover:bg-muted text-foreground"
+                aria-label="Toggle navigation menu"
+                aria-expanded={mobileMenuOpen}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {/* Hamburger / Close icon */}
+                {mobileMenuOpen ? (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                ) : (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                )}
+              </button>
               <ThemeToggle />
               <div className="hidden items-center gap-3 rounded bg-muted px-4 py-2 text-[12px] text-foreground/70 md:flex">
                 <input
@@ -178,6 +197,29 @@ export default function Header() {
               )}
             </div>
           </div>
+        </Container>
+      </div>
+
+      {/* Mobile Nav (animated) */}
+      <div
+        className={`border-b border-border bg-background md:hidden overflow-hidden transition-all duration-300 ease-out ${
+          mobileMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+        }`}
+        aria-hidden={!mobileMenuOpen}
+      >
+        <Container>
+          <nav
+            className={`flex flex-col gap-2 py-3 text-[16px] text-foreground transition-opacity duration-300 ${
+              mobileMenuOpen ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="px-1 py-2">Home</Link>
+            <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="px-1 py-2">Contact</Link>
+            <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="px-1 py-2">About</Link>
+            {!isAuthenticated && (
+              <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="px-1 py-2">Sign Up</Link>
+            )}
+          </nav>
         </Container>
       </div>
     </header>

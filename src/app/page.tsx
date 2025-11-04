@@ -7,7 +7,7 @@ import { HERO_IMG, APPLE_LOGO, JBL_IMG, PS5_IMG, ECHO_IMG, PERFUME_IMG, WOMAN_HA
 
 export default function Home() {
   return (
-    <div className="py-10">
+    <div className="py-10 overflow-x-hidden">
       {/* Hero with categories + banner */}
       <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <aside className="rounded-lg bg-black dark:bg-neutral-900 p-4 border-r border-neutral-800 md:col-span-1">
@@ -86,14 +86,16 @@ export default function Home() {
       
       {/* Flash Sales */}
       <section className="mt-12">
-        <div className="flex items-end justify-between mb-8">
-          <div className="flex items-end gap-16">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-8">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:flex-wrap sm:gap-8 md:gap-16 min-w-0">
             <SectionTitle label="Today's" title="Flash Sales" />
-            <CountdownTimer />
+            <div className="w-full sm:w-auto">
+              <CountdownTimer />
+            </div>
           </div>
           <a 
             href="/products"
-            className="rounded bg-red-500 px-8 py-3 text-sm font-medium text-white hover:bg-red-600 transition-colors"
+            className="shrink-0 rounded bg-red-500 px-8 py-3 text-sm font-medium text-white hover:bg-red-600 transition-colors"
           >
             View All
           </a>
