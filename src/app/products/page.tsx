@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import { PS5_IMG, JBL_IMG, ECHO_IMG, PERFUME_IMG, WOMAN_HAT_IMG } from "@/lib/figmaAssets";
@@ -35,7 +35,7 @@ const allProducts = [
   { title: "Sports Equipment", price: "$89.00", imageUrl: JBL_IMG, category: "Sports & Outdoor", rating: 4, reviews: 120 },
 ];
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const categoryFromUrl = searchParams.get("category");
   
@@ -43,15 +43,6 @@ export default function ProductsPage() {
 
   useEffect(() => {
     if (categoryFromUrl) {
-      // Convert URL format back to display format (e.g., "womans-fashion" to "Woman's Fashion")
-      const formattedCategory = categoryFromUrl
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')
-        .replace('Womans', "Woman's")
-        .replace('Mens', "Men's")
-        .replace('Babys', "Baby's");
-      
       // Check if the category exists in our list
       const categoryExists = categories.find(cat => 
         cat.toLowerCase().replace(/['&\s]+/g, '-') === categoryFromUrl
@@ -117,5 +108,13 @@ export default function ProductsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="py-10 text-center">Loading products...</div>}>
+      <ProductsContent />
+    </Suspense>
   );
 }

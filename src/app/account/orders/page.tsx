@@ -124,7 +124,7 @@ export default function OrdersPage() {
                     />
                   </svg>
                   <p className="text-lg text-muted-foreground">
-                    You haven't placed any orders yet.
+                    You haven&apos;t placed any orders yet.
                   </p>
                   <Link
                     href="/products"

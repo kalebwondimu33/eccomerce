@@ -124,7 +124,7 @@ export default function ReviewsPage() {
                     />
                   </svg>
                   <p className="text-lg text-muted-foreground">
-                    You haven't reviewed any products yet.
+                    You haven&apos;t reviewed any products yet.
                   </p>
                   <Link
                     href="/products"

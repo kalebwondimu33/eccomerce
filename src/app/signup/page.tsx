@@ -38,7 +38,7 @@ export default function SignupPage() {
       } else {
         setError("Failed to create account");
       }
-    } catch (err) {
+    } catch {
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
